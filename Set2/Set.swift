@@ -62,24 +62,36 @@ struct Set {
     
     func match() -> Bool {
         
-        let match = doMatch(card1: selectedCards[0], card2: selectedCards[1], card3: selectedCards[2])
+        let match = true
         calculateNewScore()
         return match
         
     }
     
+    func doMatch() -> Bool {
+        
+        // For each property, check whether they are all different, or if they are all the same
+        let shapes = selectedCards.map{ $0.shape }
+        if shapes == self.shapes || shapes.allElementsSame()  {
+            let colors = selectedCards.map{ $0.color }
+            if colors == self.colors || colors.allElementsSame() {
+                let numbers = selectedCards.map{ $0.number }
+                if numbers == self.numbers || numbers.allElementsSame() {
+                    let shading = selectedCards.map{ $0.shading }
+                    if shading == self.shadings || shading.allElementsSame() {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
+    
+    
     private func calculateNewScore() {
-        
-    }
     
-    private func allSame(p: [Any]) -> Bool {
-        
-        
-    }
-    
-    private func doMatch(card1: Card, card2: Card, card3: Card) -> Bool {
-        
-        let colors = [card1.color, card2.color, card3.color].reduce(true,  { c1, c2 in c1 == c2 })
+
     }
     
     func newGame() {
@@ -99,15 +111,26 @@ struct Set {
             }
         }
     }
+}
+
+extension Array where Element: Equatable {
     
-    
+    func allElementsSame() -> Bool {
+        
+        for element in self {
+            if element != self.first {
+                return false
+            }
+        }
+    return true
+    }
 }
 
 extension Int {
     
     var arc4random: Int {
         
-        if self  > 0 {
+        if self > 0 {
             return Int(arc4random_uniform(UInt32(self)))
         }
         else if self < 0 {

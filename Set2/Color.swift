@@ -14,5 +14,7 @@ enum Color {
     case Blue
     case Yellow
     case Magenta
+    case Green
+    case White
     
 }

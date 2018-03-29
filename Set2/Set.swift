@@ -16,6 +16,7 @@ struct Set {
     var cardsToDealFrom = [Card]()
     var cardsInPlay = [Card]()
     var selectedCards = [Card]()
+    var selectedIndexes = [Int]()
     var matchedCards = [Card]()
     
     let colors = [Color.Blue, Color.Yellow, Color.Magenta]
@@ -62,10 +63,14 @@ struct Set {
     
     func match() -> Bool {
         
-        let match = true
+        let match = doMatch()
         calculateNewScore()
-        return match
-        
+        return match        
+    }
+    
+    mutating func resetSelected() {
+        selectedIndexes.removeAll()
+        selectedCards.removeAll()
     }
     
     func doMatch() -> Bool {

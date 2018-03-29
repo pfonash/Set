@@ -29,24 +29,27 @@ class ViewController: UIViewController {
         let button = cardButtons[buttonIndex]
         
         if game.select(index: buttonIndex) {
+            
+            game.selectedIndexes.append(buttonIndex)
 
             if game.readyToMatch() {
-                game.match()
+                if game.match() {
+                    for index in game.selectedIndexes {
+                        updateBorderOn(button: cardButtons[index], with: .Green)
+                    }
+                }
+                else {
+                    for index in game.selectedIndexes {
+                        updateBorderOn(button: cardButtons[index], with: .White)
+                    }
+                }
                 updateScoreFromModel()
-                game.selectedCards.removeAll()
+                game.resetSelected()
             }
             else {
-                button.layer.borderColor = #colorLiteral(red: 0.1874154806, green: 0.647511363, blue: 0.880682528, alpha: 1)
-                button.layer.borderWidth = 3.0
+                updateBorderOn(button: button, with: .Blue)
             }
         }
-        // If couldn't select button, it's already selected.
-        else {
-            
-            button.layer.borderColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-            button.layer.borderWidth = 1.0
-            
-        }  
     }
     
     @IBAction func dealThreeMore(_ sender: UIButton) {
@@ -60,6 +63,25 @@ class ViewController: UIViewController {
     
     private func updateScoreFromModel() {
         scoreLabel.text = "Score: \(game.score)"
+    }
+    
+    private func updateBorderOn(button: UIButton, with color: Color) {
+        
+        button.layer.borderWidth = 3.0
+        
+        switch color {
+        case .Blue:
+            button.layer.borderColor = #colorLiteral(red: 0.1874154806, green: 0.647511363, blue: 0.880682528, alpha: 1)
+            
+        case .Green:
+            button.layer.borderColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        
+        case .White:
+            button.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+
+        default:
+            button.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        }
     }
 
     private func updateViewFromModel() {
@@ -89,7 +111,8 @@ class ViewController: UIViewController {
         case .Blue: color = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
         case .Magenta: color = #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
         case .Yellow: color = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-            
+        default:
+            color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
         
         switch card.shading {

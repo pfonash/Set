@@ -40,7 +40,7 @@ struct Set {
     
     mutating func dealMoreCards(numberOfCards: Int) {
         
-        if cardsInPlay.count + numberOfCards < 24 {
+        if cardsInPlay.count + numberOfCards <= 24 {
             dealCards(numberOfCards: numberOfCards)
         }
     }
@@ -76,14 +76,14 @@ struct Set {
     func doMatch() -> Bool {
         
         // For each property, check whether they are all different, or if they are all the same
-        let shapes = selectedCards.map{ $0.shape }
-        if shapes == self.shapes || shapes.allElementsSame()  {
+        let shapes = selectedCards.map { $0.shape }
+        if shapes.allElementsDifferent() || shapes.allElementsSame()  {
             let colors = selectedCards.map{ $0.color }
-            if colors == self.colors || colors.allElementsSame() {
+            if colors.allElementsDifferent() || colors.allElementsSame() {
                 let numbers = selectedCards.map{ $0.number }
-                if numbers == self.numbers || numbers.allElementsSame() {
+                if numbers.allElementsDifferent() || numbers.allElementsSame() {
                     let shading = selectedCards.map{ $0.shading }
-                    if shading == self.shadings || shading.allElementsSame() {
+                    if shading.allElementsDifferent() || shading.allElementsSame() {
                         return true
                     }
                 }
@@ -91,6 +91,8 @@ struct Set {
         }
         return false
     }
+    
+    
     
     
     
@@ -121,13 +123,26 @@ struct Set {
 extension Array where Element: Equatable {
     
     func allElementsSame() -> Bool {
-        
         for element in self {
             if element != self.first {
                 return false
             }
         }
-    return true
+        return true
+    }
+    
+    func allElementsDifferent() -> Bool {
+        
+        var copy = self
+        while !copy.isEmpty {
+            let copyEement = copy.removeFirst()
+            for element in copy {
+                if element == copyEement {
+                    return false
+                }
+            }
+        }
+        return true
     }
 }
 

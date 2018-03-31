@@ -34,15 +34,11 @@ class ViewController: UIViewController {
 
             if game.readyToMatch() {
                 if game.match() {
-                    for index in game.selectedIndexes {
-                        updateBorderOn(button: cardButtons[index], with: .Green)
-                    }
+                    let _ = game.selectedIndexes.map { i in updateBorderOn(button: cardButtons[i], with: .Green) }
+                    sleep(1)
                 }
-                else {
-                    for index in game.selectedIndexes {
-                        updateBorderOn(button: cardButtons[index], with: .White)
-                    }
-                }
+                
+                let _ = game.selectedIndexes.map { i in updateBorderOn(button: cardButtons[i], with: .White) }
                 updateScoreFromModel()
                 game.resetSelected()
             }
@@ -103,7 +99,7 @@ class ViewController: UIViewController {
         var color: UIColor?
         var shading: Float?
         var stringShape: String?
-        let fontSize: Float = 20.0
+        let fontSize: Float = 35.0
         var strokeWidth: Float?
         
         switch card.color {

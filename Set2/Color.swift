@@ -13,7 +13,7 @@ enum Color {
     
     case Blue
     case Yellow
-    case Green
+    case Magenta
     
-    static let all: [Color] = [.Blue, .Yellow, . Green]
+    static let all: [Color] = [.Blue, .Yellow, .Magenta]
 }

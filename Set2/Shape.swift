@@ -11,11 +11,9 @@ import Foundation
 enum Shape
 
 {
-    
     case Triangle
     case Oval
     case Square
     
     static let all: [Shape] = [.Triangle, .Oval, .Square]
-    
 }

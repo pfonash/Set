@@ -12,7 +12,6 @@ import Foundation
 enum Color: String
 
 {
-    
     case Blue = "Blue"
     case Yellow = "Yellow"
     case Magenta = "Magenta"

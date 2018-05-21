@@ -90,7 +90,7 @@ class ViewController: UIViewController {
                 let _ = set.selectedIndexes.map {
                     updateBorderOn(button: cardButtons[$0], with: "Green")}
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     let _ = self.set.selectedIndexes.map {self.cardButtons[$0].isHidden = true }
                     self.set.resetSelected()
                 }
@@ -99,7 +99,8 @@ class ViewController: UIViewController {
                 let _ = set.selectedIndexes.map {
 
                 updateBorderOn(button: cardButtons[$0], with: "Red")}
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { // change 2 to desired number of seconds
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     let _ = self.set.selectedIndexes.map {
                         self.updateBorderOn(button: self.cardButtons[$0], with: "White")}
                     self.set.resetSelected()
@@ -160,5 +161,3 @@ extension Float {
         return CGFloat(self)
     }
 }
-
-

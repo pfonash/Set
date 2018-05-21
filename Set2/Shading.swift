@@ -8,10 +8,14 @@
 
 import Foundation
 
-enum Shading {
+enum Shading
+
+{
     
     case Solid
     case Striped
     case Open
+    
+    static let all: [Shading] = [.Solid, .Striped, .Open]
     
 }

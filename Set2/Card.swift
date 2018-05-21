@@ -10,7 +10,6 @@ import Foundation
 
 struct Card: Equatable {
     
-    
     static func == (lhs: Card, rhs: Card) -> Bool {
         
         return (

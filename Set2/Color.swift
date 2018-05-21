@@ -9,11 +9,13 @@
 import Foundation
 
 
-enum Color {
+enum Color: String
+
+{
     
-    case Blue
-    case Yellow
-    case Magenta
+    case Blue = "Blue"
+    case Yellow = "Yellow"
+    case Magenta = "Magenta"
     
     static let all: [Color] = [.Blue, .Yellow, .Magenta]
 }

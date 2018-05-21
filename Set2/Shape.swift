@@ -8,10 +8,14 @@
 
 import Foundation
 
-enum Shape {
+enum Shape
+
+{
     
     case Triangle
     case Oval
     case Square
+    
+    static let all: [Shape] = [.Triangle, .Oval, .Square]
     
 }

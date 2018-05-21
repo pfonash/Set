@@ -8,24 +8,23 @@
 
 import Foundation
 
-
 struct Set {
     
     private(set) var score = 0
     
     var cardsToDealFrom = [Card]()
     var cardsInPlay = [Card]()
-    var selectedCards = [Card]()
-    var selectedIndexes = [Int]()
+    private(set) var selectedCards = [Card]()
+    private(set) var selectedIndexes = [Int]()
     var matchedCards = [Card]()
+    var isMatch = false
     
-    let colors = [Color.Blue, Color.Yellow, Color.Magenta]
-    let shapes = [Shape.Oval, Shape.Triangle, Shape.Square]
-    let shadings = [Shading.Open, Shading.Solid, Shading.Striped]
+    let colors = Color.all
+    let shapes = Shape.all
+    let shadings = Shading.all
     let numbers = [1, 2, 3]
     
     init(numberOfCards: Int) {
-        
         makeCards()
         dealCards(numberOfCards: numberOfCards)
     }
@@ -45,27 +44,27 @@ struct Set {
         }
     }
     
-    mutating func select(index: Int) -> Bool {        
+    mutating func select(buttonIndex: Int) -> Bool {
         
-        let cardForButton = cardsInPlay[index]
+        let cardForButton = cardsInPlay[buttonIndex]
 
-        if let index = selectedCards.index(of: cardForButton) {
-            selectedCards.remove(at: index)
+        if let cardIndex = selectedCards.index(of: cardForButton) {
+            selectedCards.remove(at: cardIndex)
+            selectedIndexes.remove(at: cardIndex)
             return false
         }
-        
-        // Else
         selectedCards.append(cardForButton)
+        selectedIndexes.append(buttonIndex)
         return true
     }
     
-    func readyToMatch() -> Bool { return selectedCards.count == 3 }
+    func readyToMatch() -> Bool { return selectedCards.count >= 3 }
     
-    func match() -> Bool {
+    mutating func match() {
         
         let match = doMatch()
         calculateNewScore()
-        return match        
+        self.isMatch = match
     }
     
     mutating func resetSelected() {
@@ -92,18 +91,10 @@ struct Set {
         return false
     }
     
-    
-    
-    
-    
     private func calculateNewScore() {
-    
-
     }
     
     func newGame() {
-        
-        
     }
     
     private mutating func makeCards() {
